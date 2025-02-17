@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>BoardWeb</display-name>
+  
+  <!-- 서블릿과 url pattern 지정. -->
+  <servlet>
+  <servlet-name>sample</servlet-name>
+  <servlet-class>come.yedam.SampleServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>sample</servlet-name>
+  <url-pattern>/sample</url-pattern>
+  </servlet-mapping>
+  
+  <welcome-file-list>
+  <!-- app 실행시 첫페이지. -->
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+</web-app>
