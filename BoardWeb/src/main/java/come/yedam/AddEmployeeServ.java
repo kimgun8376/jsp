@@ -26,7 +26,8 @@ public class AddEmployeeServ extends HttpServlet {
 		EmpDAO edao = new EmpDAO();
 		boolean result = edao.registerEmp(new Employee(Integer.parseInt(eno), ename, tel));
 		if (result) {
-			resp.sendRedirect("sample"); // addEmpServlet -> sample 페이지이동.
+			resp.getWriter().print("처리성공");
+			// resp.sendRedirect("sample"); // addEmpServlet -> sample 페이지이동.
 		} else {
 			resp.getWriter().print("처리실패");
 		}
