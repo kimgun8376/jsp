@@ -1,4 +1,4 @@
-package come.yedam;
+package come.yedam.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 // Data Access Object.
+
+import come.yedam.vo.Employee;
 
 public class EmpDAO extends DAO {
 	

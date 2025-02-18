@@ -1,4 +1,4 @@
-package come.yedam;
+package come.yedam.serv;
 
 
 import java.io.IOException;
@@ -8,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import come.yedam.dao.EmpDAO;
+import come.yedam.vo.Employee;
 
 // init - service - destroy : 서블릿의 생명주기.
 @WebServlet("/addEmp")

@@ -1,10 +1,13 @@
-package come.yedam;
+package come.yedam.control;
 
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import come.yedam.dao.EmpDAO;
+import come.yedam.vo.Employee;
 
 public class BoardListControl implements Control {
 	@Override

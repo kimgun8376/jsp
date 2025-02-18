@@ -1,4 +1,4 @@
-package come.yedam;
+package come.yedam.vo;
 
 public class Student {
 	

@@ -1,4 +1,4 @@
-package come.yedam;
+package come.yedam.serv;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,6 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import come.yedam.dao.EmpDAO;
+import come.yedam.vo.Employee;
 
 /*
  * 서블릿 생성(http 프로토콜 통해 웹브라우저 출력)

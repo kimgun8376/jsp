@@ -1,7 +1,11 @@
-package come.yedam;
+package come.yedam.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import come.yedam.vo.Employee;
+import come.yedam.vo.Student;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

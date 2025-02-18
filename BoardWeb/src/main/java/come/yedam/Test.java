@@ -2,6 +2,9 @@ package come.yedam;
 
 import java.util.List;
 
+import come.yedam.dao.StudnetDAO;
+import come.yedam.vo.Student;
+
 public class Test {
     public static void main(String[] args) {
     	

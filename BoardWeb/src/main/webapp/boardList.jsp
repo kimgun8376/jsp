@@ -1,4 +1,4 @@
-<%@page import="come.yedam.Employee"%>
+<%@page import="come.yedam.vo.Employee"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>

@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import come.yedam.control.AddBoardControl;
+import come.yedam.control.BoardListControl;
+import come.yedam.control.Control;
+
 /*
  * MVC에서 Control 역할.
  * url 요청 -> 서블릿.

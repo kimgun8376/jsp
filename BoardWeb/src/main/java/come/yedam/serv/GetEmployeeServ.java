@@ -1,4 +1,4 @@
-package come.yedam;
+package come.yedam.serv;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,6 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import come.yedam.dao.EmpDAO;
+import come.yedam.vo.Employee;
 
 @WebServlet("/empInfo")
 public class GetEmployeeServ extends HttpServlet {
