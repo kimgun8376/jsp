@@ -12,33 +12,45 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /*
- * MVC에서 Control역할.
- * url요청 -> 서블릿.
+ * MVC에서 Control 역할.
+ * url 요청 -> 서블릿.
  */
 @WebServlet("*.do")
 public class FronController extends HttpServlet {
-	Map<String, String> map;
-	
-	public FronController() {
-		map = new HashMap<>(); //map 필드의 초기화.
-	}
-	
-	@Override
-	public void init(ServletConfig config) throws ServletException {
-		map.put("url","servlet"); // addStudent.do AddStudentServlet
-		map.put("/boardList.do",getServletInfo()); 
-	}
-	
-	
-	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("front control");
-		// http://localhost:8080/BoardWeb/addStudent.do => url
-		// /BoardWeb/addStudent.do => url
-		String uri = req.getRequestURI();// "/BoardWeb/addStudent.do"
-		String context = req.getContextPath(); // "/BoardWeb"
-		String page = uri.substring(context.length());
-		
-		System.out.println(page);
-	}
+    Map<String, Control> map;
+
+    public FronController() {
+        map = new HashMap<>(); // map 필드의 초기화.
+    }
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        // URL과 해당 컨트롤러를 매핑
+    //    map.put("/addStudent.do", new AddStudentControl()); 
+        map.put("/boardList.do", new BoardListControl()); 
+        map.put("/addBoard.do", new AddBoardControl()); 
+    }
+
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        System.out.println("FrontController: service()");
+
+        // URI를 통해 요청된 URL을 가져옵니다.
+        String uri = req.getRequestURI(); // 예: "/BoardWeb/addStudent.do"
+        String context = req.getContextPath(); // 예: "/BoardWeb"
+        String page = uri.substring(context.length()); // 예: "/addStudent.do"
+
+        System.out.println("Request URI: " + page);
+
+        // map 컬렉션에서 해당 URL에 맞는 Control 객체를 가져옵니다.
+        Control control = map.get(page);
+        
+        // Control 객체가 null이 아니면 exec() 메서드를 실행
+        if (control != null) {
+            control.exec(req, resp);
+        } else {
+            // 존재하지 않는 URL에 대한 처리를 추가할 수 있습니다.
+            resp.getWriter().print("잘못된 요청입니다.");
+        }
+    }
 }
