@@ -6,7 +6,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import come.yedam.dao.BoardDAO;
 import come.yedam.dao.EmpDAO;
+import come.yedam.serv.BoardVO;
 import come.yedam.vo.Employee;
 
 public class BoardListControl implements Control {
@@ -16,8 +18,8 @@ public class BoardListControl implements Control {
 		// boardList.do -> BoardListControl
 		req.setAttribute("msg", name);
 
-		EmpDAO edao = new EmpDAO();
-		List<Employee> list = edao.search(new Employee());
+		BoardDAO edao = new BoardDAO();
+		List<BoardVO> list = edao.selectBoard();
 		req.setAttribute("list", list);
 
 		try {

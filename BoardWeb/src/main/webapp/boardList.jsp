@@ -1,3 +1,5 @@
+<%@page import="come.yedam.serv.BoardVO"%>
+<%@page import="come.yedam.dao.BoardDAO"%>
 <%@page import="come.yedam.vo.Employee"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -15,18 +17,24 @@
 	System.out.println(msg);
 	// boardList.do -> request -> boardList.jsp
 	String result = (String) request.getAttribute("msg");
-	List<Employee> list = (List<Employee>) request.getAttribute("list");
+	List<BoardVO> list = (List<BoardVO>) request.getAttribute("list");
 	%>
 	<p>msg의 값은<%=result%></p>
-	<h3>반복문</h3>
-	<ul>
+	<h3>게시글 목록</h3>
+<table border ="2">
 		<%
-		for (Employee emp : list) {
+		for (BoardVO board : list) {
 		%>
-		<li><%=emp.getEmpNo()%>,<%=emp.getEmpName()%>,<%=emp.getSalary()%></li>
+		<tr>
+		<td><%= board.getBoardNo() %></td>
+		<td><%= board.getTitle() %></td>
+		<td><%= board.getWriter() %></td>
+		<td><%= board.getWriteDate() %></td>
+       <td><%=board.getViewCnt() %></td>
+		</tr>
 		<%
-		}
+		} // for 반복문 종료 
 		%>
-	</ul>
+	</table>
 </body>
 </html>  // 컨트롤 + 스페이스 = import
