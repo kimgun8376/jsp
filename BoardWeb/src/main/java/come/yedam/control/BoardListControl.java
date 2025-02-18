@@ -21,7 +21,9 @@ public class BoardListControl implements Control {
 		BoardDAO edao = new BoardDAO();
 		List<BoardVO> list = edao.selectBoard();
 		req.setAttribute("list", list);
-
+        System.out.println(list);
+		
+		
 		try {
 			// 요청재지정 (url:boardList.do(boardList.jsp))
 			req.getRequestDispatcher("boardList.jsp").forward(req, resp);
