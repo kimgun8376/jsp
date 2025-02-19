@@ -21,12 +21,11 @@ public class BoardListControl implements Control {
 		BoardDAO edao = new BoardDAO();
 		List<BoardVO> list = edao.selectBoard();
 		req.setAttribute("list", list);
-        System.out.println(list);
 		
 		
 		try {
 			// 요청재지정 (url:boardList.do(boardList.jsp))
-			req.getRequestDispatcher("boardList.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/views/boardList.jsp").forward(req, resp); // 해당파일 열려면 폴더 - 파일이름 
 		} catch (ServletException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

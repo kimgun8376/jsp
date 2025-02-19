@@ -16,7 +16,7 @@ public class BoardDAO extends DAO {
         
         // 데이터베이스 연결을 위한 변수 선언
         String sql = "SELECT * FROM BOARD";  // 예시 SQL문. 실제 테이블 구조에 맞게 수정 필요
-        try (Connection conn = getConnection(); // 연결 가져오기
+        try (Connection conn = getConnect(); // 연결 가져오기
              PreparedStatement psmt = conn.prepareStatement(sql);
              ResultSet rs = psmt.executeQuery()) {
             
@@ -39,7 +39,7 @@ public class BoardDAO extends DAO {
     // 추가 (insert)
     public boolean insertBoard(BoardVO board) {
         String sql = "INSERT INTO BOARD (title, content, writer) VALUES (?, ?, ?)";
-        try (Connection conn = getConnection(); 
+        try (Connection conn = getConnect(); 
              PreparedStatement psmt = conn.prepareStatement(sql)) {
             
             psmt.setString(1, board.getTitle());
@@ -58,7 +58,7 @@ public class BoardDAO extends DAO {
     // 수정 (update)
     public boolean updateBoard(BoardVO board) {
         String sql = "UPDATE BOARD SET title = ?, content = ? WHERE board_no = ?";
-        try (Connection conn = getConnection(); 
+        try (Connection conn = getConnect(); 
              PreparedStatement psmt = conn.prepareStatement(sql)) {
             
             psmt.setString(1, board.getTitle());
@@ -77,7 +77,7 @@ public class BoardDAO extends DAO {
     // 삭제 (delete)
     public boolean deleteBoard(int boardNo) {
         String sql = "DELETE FROM BOARD WHERE board_no = ?";
-        try (Connection conn = getConnection(); 
+        try (Connection conn = getConnect(); 
              PreparedStatement psmt = conn.prepareStatement(sql)) {
             
             psmt.setInt(1, boardNo);
@@ -91,11 +91,5 @@ public class BoardDAO extends DAO {
         return false;  // 삭제 실패 시 false 반환
     }
 
-    // 데이터베이스 연결을 위한 메서드 (예시)
-    private Connection getConnection() throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/boarddb";  // 데이터베이스 URL
-        String user = "root";  // 사용자명
-        String password = "password";  // 비밀번호
-        return DriverManager.getConnection(url, user, password);  // 연결 반환
-    }
+   
 }
