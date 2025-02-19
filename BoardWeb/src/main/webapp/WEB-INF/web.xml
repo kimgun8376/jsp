@@ -14,6 +14,6 @@
   
   <welcome-file-list>
   <!-- app 실행시 첫페이지. -->
-    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
 </web-app>

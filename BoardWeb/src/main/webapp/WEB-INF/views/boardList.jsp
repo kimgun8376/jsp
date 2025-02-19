@@ -4,16 +4,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<!-- 부트스트랩 css. js -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</head>
-<body>
+<jsp:include page="includes/header.jsp"></jsp:include>
 	<!-- html 주석문. -->
 	<%
 	String msg = "Hello";
@@ -26,11 +17,11 @@
 	<h3>게시글 목록</h3>
 <table class="table table-striped">
 		<tr>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-       <td></td>
+		<td>지은이</td>
+		<td>제목</td>
+		<td>작가</td>
+		<td>작가정보</td>
+       <td>가격</td>
 		</tr>
 	
 		<%
@@ -38,7 +29,7 @@
 		%>
 		<tr>
 		<td><%= board.getBoardNo() %></td>
-		<td><%= board.getTitle() %></td>
+		<td><a href = "board.do?bno=<%= board.getBoardNo() %>"><%=board.getTitle() %></a></td>
 		<td><%= board.getWriter() %></td>
 		<td><%= board.getWriteDate() %></td>
        <td><%=board.getViewCnt() %></td>
@@ -48,5 +39,4 @@
 		%>
 		</tbody>
 	</table>
-</body>
-</html>  
+<jsp:include page="includes/footer.jsp"></jsp:include>

@@ -12,8 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import come.yedam.control.AddBoardControl;
+import come.yedam.control.BoardControl;
 import come.yedam.control.BoardListControl;
-import come.yedam.control.Control;
+import come.yedam.control.MainControl;
+import come.yedam.control.ModifyBoardControl;
+import come.yedam.control.ModifyControl;
+
 
 /*
  * MVC에서 Control 역할.
@@ -30,9 +34,16 @@ public class FronController extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         // URL과 해당 컨트롤러를 매핑
-    //    map.put("/addStudent.do", new AddStudentControl()); 
-        map.put("/boardList.do", new BoardListControl()); 
-        map.put("/addBoard.do", new AddBoardControl()); 
+    //    map.put("/addStudent.do", new AddStudentControl());
+        map.put("/main.do", new MainControl()); 
+        map.put("/boardList.do", new BoardListControl()); //글목록 
+        map.put("/addBoard.do", new AddFormControl()); //등록화면 
+        map.put("/addBoard.do", new AddBoardControl()); //등록처리 
+        map.put("/board.do", new BoardControl()); //상세화면 
+        map.put("/modifyForm.do", new ModifyControl()); //수정화면 
+        map.put("/modifyBoard.do", new ModifyBoardControl()); //수정처리 
+
+
     }
 
     @Override
@@ -53,7 +64,7 @@ public class FronController extends HttpServlet {
         if (control != null) {
             control.exec(req, resp);
         } else {
-            // 존재하지 않는 URL에 대한 처리를 추가할 수 있습니다.
+            // 존재하지 않는 URL에 대한 처리를 추가할 수 있습니다...........................................
             resp.getWriter().print("잘못된 요청입니다.");
         }
     }

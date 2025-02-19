@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import come.yedam.Control;
 import come.yedam.dao.BoardDAO;
 import come.yedam.dao.EmpDAO;
 import come.yedam.serv.BoardVO;
