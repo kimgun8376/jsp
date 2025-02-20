@@ -17,6 +17,7 @@ import come.yedam.control.BoardListControl;
 import come.yedam.control.MainControl;
 import come.yedam.control.ModifyBoardControl;
 import come.yedam.control.ModifyControl;
+import come.yedam.control.RemoveBoardControl;
 
 
 /*
@@ -42,6 +43,8 @@ public class FronController extends HttpServlet {
         map.put("/board.do", new BoardControl()); //상세화면 
         map.put("/modifyForm.do", new ModifyControl()); //수정화면 
         map.put("/modifyBoard.do", new ModifyBoardControl()); //수정처리 
+        // 삭제화면,삭제처리
+        map.put("removeBoard.do", new RemoveBoardControl());
 
 
     }

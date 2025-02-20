@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import come.yedam.Control;
+import come.yedam.PageVO;
 import come.yedam.dao.BoardDAO;
 import come.yedam.dao.EmpDAO;
 import come.yedam.serv.BoardVO;
@@ -14,14 +15,25 @@ import come.yedam.vo.Employee;
 
 public class BoardListControl implements Control {
 	@Override
-	public void exec(HttpServletRequest req, HttpServletResponse resp) {
+	public void exec(HttpServletRequest req, HttpServletResponse resp)
+	throws SecurityException,IOException {
+		
+		String page = req.getParameter("page");
+		page = page == null ? "1" : page; 
+		
+		
 		String name = "홍길동";
 		// boardList.do -> BoardListControl
 		req.setAttribute("msg", name);
 
 		BoardDAO edao = new BoardDAO();
-		List<BoardVO> list = edao.selectBoard();
+		List<BoardVO> list = edao.selectBoard(Integer.parseInt(page));
 		req.setAttribute("list", list);
+		
+		//페이징
+		int totalCnt = edao.getTotalCount(); // 실제건수.
+		PageVO paging = new PageVO(Integer.parseInt(page), totalCnt);
+		req.setAttribute("paging", paging);
 		
 		
 		try {

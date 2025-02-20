@@ -9,6 +9,24 @@ import come.yedam.serv.BoardVO;
  * CRUD: Create, Read, Update, Delete
  */
 public class BoardDAO extends DAO {
+	// 페이징의 처리를 위한 실체데이터.
+	public int getTotalCount() {
+		String sql = "select count(1) from tbl_board";
+		try {
+			psmt = getConnect().prepareStatement(sql);
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				return rs.getInt(1); // count(1) 값. }
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disConnect(); // 정상실행이거나 예외발생이나 반드시 실행할 코드. }
+		}
+		return 0;
+
+	}
+
 	// 글조회수 증가.
 	public void updateCount(int boardNo) {
 		String sql = "update tbl_board" + "set     title = ?" + "     ,content = ?" + "where board_no = ?";
@@ -18,7 +36,10 @@ public class BoardDAO extends DAO {
 			psmt.executeUpdate(); // 쿼리 실행.
 
 		} catch (SQLException e) {
+		} finally {
 		}
+		disConnect(); // 정상실행이거나 예외발생이나 반드시 실행할 코드.
+
 	}
 
 	// 상세조회. 글번호 => 전체정보 반환.
@@ -51,19 +72,25 @@ public class BoardDAO extends DAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			disConnect(); // 정상실행이거나 예외발생이나 반드시 실행할 코드. }
 		}
 		return null; // 조회결과 없음.
 	} // end of getBoard.
 
 	// 조회 (select)
-	public List<BoardVO> selectBoard() {
+	public List<BoardVO> selectBoard(int page) {
 		List<BoardVO> list = new ArrayList<>();
-
+		String qry = "select tbl_b.*" + "from(select rownum rn, tbl_a.*"
+				+ " from( select board_no, title, content, writer, write_date, view_cnt" + "  from tbl_board"
+				+ "  order by board_no) tbl_a) tbl_b" + " where tbl_b.rn >= (? - 1 ) * 5 + 1"
+				+ " and   tbl_b.rn <= ? * 5";
 		// 데이터베이스 연결을 위한 변수 선언
-		String sql = "SELECT * FROM tbl_board"; // 예시 SQL문. 실제 테이블 구조에 맞게 수정 필요
-		try (Connection conn = getConnect(); // 연결 가져오기
-				PreparedStatement psmt = conn.prepareStatement(sql);
-				ResultSet rs = psmt.executeQuery()) {
+		try {
+			psmt = getConnect().prepareStatement(qry);
+			psmt.setInt(1, page);
+			psmt.setInt(3, page);
+			rs = psmt.executeQuery();
 
 			while (rs.next()) {
 				BoardVO board = new BoardVO();
@@ -76,8 +103,9 @@ public class BoardDAO extends DAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			disConnect(); // 정상실행이거나 예외발생이나 반드시 실행할 코드.
 		}
-
 		return list;
 	}
 
@@ -94,14 +122,16 @@ public class BoardDAO extends DAO {
 			return result > 0; // 추가 성공하면 true 반환
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} finally {
+			disConnect(); // 정상실행이거나 예외발생이나 반드시 실행할 코드. }
 
+		}
 		return false; // 추가 실패 시 false 반환
 	}
 
 	// 수정 (update)
 	public boolean updateBoard(BoardVO board) {
-		String sql = "update tbl_board" + "set     title = ?" + "     ,content = ?" + "where board_no = ?";
+		String sql = "update tbl_board set     title = ?" + "     ,content = ? " + "where board_no = ?";
 
 		try {
 			psmt = getConnect().prepareStatement(sql);
@@ -112,25 +142,30 @@ public class BoardDAO extends DAO {
 			if (r > 0)
 				return true;
 		} catch (SQLException e) {
-		   e.printStackTrace();
+			e.printStackTrace();
+		} finally {
+			disConnect(); // 정상실행이거나 예외발생이나 반드시 실행할 코드.}
 		}
 		return false; // 수정 실패 시 false 반환
 	}
 
 	// 삭제 (delete)
 	public boolean deleteBoard(int boardNo) {
-		String sql = "DELETE FROM tbl_board WHERE board_no = ?";
-		try (Connection conn = getConnect(); PreparedStatement psmt = conn.prepareStatement(sql)) {
+		String query = "delete from tbl_board where board_no = ?";
 
-			psmt.setInt(1, boardNo);
+		try {
+			psmt = getConnect().prepareStatement(query);
+			psmt.setInt(1, boardNo); // ?에 값 지정.
 
-			int result = psmt.executeUpdate();
-			return result > 0; // 삭제 성공하면 true 반환
+			int r = psmt.executeUpdate(); // 쿼리 실행.
+			if (r > 0) {
+				return true;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			disConnect(); // 정상실행이거나 예외발생이나 반드시 실행할 코드.}
 		}
-
-		return false; // 삭제 실패 시 false 반환
-	}
-
+		return false;
+	}// end of deleteBoard
 }

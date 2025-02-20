@@ -18,6 +18,11 @@ BoardVO board =(BoardVO) request.getAttribute("board");
 <th>내용</th>
 <td colspan ="3"<%= board.getContent() %>></td>
 </tr>
+<tr>
+<th>제목</th>
+<td colspan ="3"<%= board.getTitle() %>></td>
+</tr>
+
 
 <tr>
 <th>작성자</th>
@@ -34,4 +39,12 @@ BoardVO board =(BoardVO) request.getAttribute("board");
 </tr>
 </table>
 </form>
+<script>
+ //삭제버튼에 클릭이벤트 등록.
+ document.querySelector('button.btn-danger').addEventListener('click',function(e) {
+	 let bno = document.querySelector('input[name="bno"]').value;
+	 console.log(bno);
+	 location.href = "removeBoard.do?bno=" +bno;
+ });
+</script>
 <jsp:include page="includes/footer.jsp"></jsp:include>
