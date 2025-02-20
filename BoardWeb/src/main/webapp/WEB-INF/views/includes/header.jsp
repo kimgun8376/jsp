@@ -21,8 +21,15 @@
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="boardList.do">게시글 목록</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="addForm.do">글등록(화면)</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Overview</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
+                    <!-- 세션(IongId) 값을 저장 -->
+                    <% String logId = (String) session.getAttribute("loginId");
+                    if (logId == null) { // null, ""
+                              
+                    %>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="loginForm.do">로그인(화면)</a>
+                    <%} else {%>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="logout.do">로그아웃(<%=logId %>)</a>
+                    <%} %>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
                 </div>

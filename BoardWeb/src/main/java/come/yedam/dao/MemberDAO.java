@@ -8,12 +8,12 @@ public class MemberDAO extends DAO {
 
 	public MemberVO login(String id, String pw) {
 		String sql = "select member_id" //
-				     +"            ,passwd" //
+				     +"            ,passd" //
 				     +"            ,member_name" //
 				     +"            ,responsibility" // 
 				     +"    from tbl_member  " //
 				     +"    where member_id = ?" //
-				     +"    and  passwd = ?";
+				     +"    and  passd = ?";
 		// 조회.
 		try {
 			psmt = getConnect().prepareStatement(sql);
@@ -25,7 +25,7 @@ public class MemberDAO extends DAO {
 			if(rs.next()) { //조회된 결과가 있으면.
 				MemberVO mvo = new MemberVO();
 				mvo.setMemberId(rs.getString("member_id"));
-				mvo.setPasswd(rs.getString("passwd"));
+				mvo.setPasswd(rs.getString("passd"));
 				mvo.setMemberId(rs.getString("member_name"));
 				mvo.setResponsibility(rs.getString("responsibility"));
                 return mvo;

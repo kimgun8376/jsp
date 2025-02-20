@@ -81,15 +81,18 @@ public class BoardDAO extends DAO {
 	// 조회 (select)
 	public List<BoardVO> selectBoard(int page) {
 		List<BoardVO> list = new ArrayList<>();
-		String qry = "select tbl_b.*" + "from(select rownum rn, tbl_a.*"
-				+ " from( select board_no, title, content, writer, write_date, view_cnt" + "  from tbl_board"
-				+ "  order by board_no) tbl_a) tbl_b" + " where tbl_b.rn >= (? - 1 ) * 5 + 1"
+		String qry = "select tbl_b.*" 
+		        + "from(select rownum rn, tbl_a.*"
+				+ " from( select board_no, title, content, writer, write_date, view_cnt" 
+				+ "  from tbl_board"
+				+ "  order by board_no desc) tbl_a) tbl_b" 
+				+ " where tbl_b.rn >= (? - 1 ) * 5 + 1"
 				+ " and   tbl_b.rn <= ? * 5";
 		// 데이터베이스 연결을 위한 변수 선언
 		try {
 			psmt = getConnect().prepareStatement(qry);
 			psmt.setInt(1, page);
-			psmt.setInt(3, page);
+			psmt.setInt(2, page);
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {

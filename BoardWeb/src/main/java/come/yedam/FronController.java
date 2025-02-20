@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import come.yedam.control.AddBoardControl;
 import come.yedam.control.BoardControl;
 import come.yedam.control.BoardListControl;
+import come.yedam.control.LoginControl;
+import come.yedam.control.LogoutControl;
 import come.yedam.control.MainControl;
 import come.yedam.control.ModifyBoardControl;
 import come.yedam.control.ModifyControl;
@@ -44,7 +46,13 @@ public class FronController extends HttpServlet {
         map.put("/modifyForm.do", new ModifyControl()); //수정화면 
         map.put("/modifyBoard.do", new ModifyBoardControl()); //수정처리 
         // 삭제화면,삭제처리
-        map.put("removeBoard.do", new RemoveBoardControl());
+        map.put("/removeBoard.do", new RemoveBoardControl());
+   //로그인.
+        map.put("/loginForm.do", new LoginControl()); //로그인화면.
+        map.put("/login.do", new LoginControl());  // 로그인처리.
+        map.put("/logout.do", new LogoutControl());  // 로그아웃.
+
+
 
 
     }
