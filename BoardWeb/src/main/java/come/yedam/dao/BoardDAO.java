@@ -3,17 +3,37 @@ package come.yedam.dao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 import come.yedam.serv.BoardVO;
+import come.yedam.vo.SearchVO;
 
 /*
  * CRUD: Create, Read, Update, Delete
  */
 public class BoardDAO extends DAO {
 	// 페이징의 처리를 위한 실체데이터.
-	public int getTotalCount() {
+	public int getTotalCount(SearchVO search) {
 		String sql = "select count(1) from tbl_board";
+
+		if (search.getSearchCondition().equals("T")) {
+			sql += "          where title like '%'||?||'%' ";
+		} else if (search.getSearchCondition().equals("W")) {
+			sql += "          where writer like '%'||?||'%' ";
+		} else if (search.getSearchCondition().equals("TW")) {
+			sql += "          where title like '%'||?||'%' or writer like '%'||?||'%' ";
+		}
+
 		try {
 			psmt = getConnect().prepareStatement(sql);
+			int cnt = 1;
+			if (search.getSearchCondition().equals("T")) { // 제목검색.
+				psmt.setString(cnt++, search.getKeyword());
+			} else if (search.getSearchCondition().equals("W")) { // 작성자검색.
+				psmt.setString(cnt++, search.getKeyword());
+			} else if (search.getSearchCondition().equals("TW")) { // 제목, 작성자 검색.
+				psmt.setString(cnt++, search.getKeyword());
+				psmt.setString(cnt++, search.getKeyword());
+			}
 			rs = psmt.executeQuery();
 			if (rs.next()) {
 				return rs.getInt(1); // count(1) 값. }
@@ -57,9 +77,7 @@ public class BoardDAO extends DAO {
 			psmt.setInt(1, boardNo);
 			rs = psmt.executeQuery();
 			// 조회결과 존재하면...
-			if (rs.next())
-				;
-			{
+			if (rs.next()) {
 				BoardVO board = new BoardVO();
 				board.setBoardNo(rs.getInt("board_no"));
 				board.setTitle(rs.getString("title"));
@@ -79,20 +97,35 @@ public class BoardDAO extends DAO {
 	} // end of getBoard.
 
 	// 조회 (select)
-	public List<BoardVO> selectBoard(int page) {
+	public List<BoardVO> selectBoard(SearchVO search) {
 		List<BoardVO> list = new ArrayList<>();
-		String qry = "select tbl_b.*" 
-		        + "from(select rownum rn, tbl_a.*"
-				+ " from( select board_no, title, content, writer, write_date, view_cnt" 
-				+ "  from tbl_board"
-				+ "  order by board_no desc) tbl_a) tbl_b" 
-				+ " where tbl_b.rn >= (? - 1 ) * 5 + 1"
+		String qry = "select tbl_b.*" + "from(select rownum rn, tbl_a.*"
+				+ " from( select board_no, title, content, writer, write_date, view_cnt" + "  from tbl_board";
+		if (search.getSearchCondition().equals("T")) {
+			qry += "          where title like '%'||?||'%' ";
+		} else if (search.getSearchCondition().equals("W")) {
+			qry += "          where writer like '%'||?||'%' ";
+		} else if (search.getSearchCondition().equals("TW")) {
+			qry += "          where title like '%'||?||'%' or writer like '%'||?||'%' ";
+		}
+		qry += "  order by board_no desc) tbl_a) tbl_b" + " where tbl_b.rn >= (? - 1 ) * 5 + 1"
 				+ " and   tbl_b.rn <= ? * 5";
 		// 데이터베이스 연결을 위한 변수 선언
 		try {
 			psmt = getConnect().prepareStatement(qry);
-			psmt.setInt(1, page);
-			psmt.setInt(2, page);
+			// 조건.
+			int cnt = 1;
+			if (search.getSearchCondition().equals("T")) { // 제목검색.
+				psmt.setString(cnt++, search.getKeyword());
+			} else if (search.getSearchCondition().equals("W")) { // 작성자검색.
+				psmt.setString(cnt++, search.getKeyword());
+			} else if (search.getSearchCondition().equals("TW")) { // 제목, 작성자 검색.
+				psmt.setString(cnt++, search.getKeyword());
+				psmt.setString(cnt++, search.getKeyword());
+			}
+
+			psmt.setInt(cnt++, search.getPage()); // 페이지.
+			psmt.setInt(cnt++, search.getPage()); // 페이지.
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {
@@ -114,12 +147,13 @@ public class BoardDAO extends DAO {
 
 	// 추가 (insert)
 	public boolean insertBoard(BoardVO board) {
-		String sql = "INSERT tbl_board (title, content, writer) VALUES (?, ?, ?)";
+		String sql = "INSERT into tbl_board (board_no, title, content, writer, img) VALUES (board_seq.nextval, ?, ?, ?, ?)";
 		try (Connection conn = getConnect(); PreparedStatement psmt = conn.prepareStatement(sql)) {
 
 			psmt.setString(1, board.getTitle());
 			psmt.setString(2, board.getContent());
 			psmt.setString(3, board.getWriter());
+			psmt.setString(4, board.getImg());
 
 			int result = psmt.executeUpdate();
 			return result > 0; // 추가 성공하면 true 반환

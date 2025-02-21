@@ -40,7 +40,7 @@ public class FronController extends HttpServlet {
     //    map.put("/addStudent.do", new AddStudentControl());
         map.put("/main.do", new MainControl()); 
         map.put("/boardList.do", new BoardListControl()); //글목록 
-        map.put("/addBoard.do", new AddFormControl()); //등록화면 
+        map.put("/addForm.do", new AddFormControl()); //등록화면 
         map.put("/addBoard.do", new AddBoardControl()); //등록처리 
         map.put("/board.do", new BoardControl()); //상세화면 
         map.put("/modifyForm.do", new ModifyControl()); //수정화면 

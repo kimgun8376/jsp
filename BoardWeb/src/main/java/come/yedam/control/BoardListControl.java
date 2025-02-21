@@ -12,6 +12,7 @@ import come.yedam.dao.BoardDAO;
 import come.yedam.dao.EmpDAO;
 import come.yedam.serv.BoardVO;
 import come.yedam.vo.Employee;
+import come.yedam.vo.SearchVO;
 
 public class BoardListControl implements Control {
 	@Override
@@ -20,20 +21,32 @@ public class BoardListControl implements Control {
 		
 		String page = req.getParameter("page");
 		page = page == null ? "1" : page; 
+		String sc = req.getParameter("searchCondition");
+		String kw = req.getParameter("keyword");
+		sc = sc == null ? "" : sc;  //null 값처리
+		kw = kw == null ? "" : kw; //null 값처리
 		
+		//SearchVO : 파라미터
+		SearchVO search = new SearchVO(Integer.parseInt(page), sc, kw);
+
 		
 		String name = "홍길동";
 		// boardList.do -> BoardListControl
 		req.setAttribute("msg", name);
 
 		BoardDAO edao = new BoardDAO();
-		List<BoardVO> list = edao.selectBoard(Integer.parseInt(page));
+		List<BoardVO> list = edao.selectBoard(search);
 		req.setAttribute("list", list);
 		
 		//페이징
-		int totalCnt = edao.getTotalCount(); // 실제건수.
+		int totalCnt = edao.getTotalCount(search); // 실제건수.
+		
 		PageVO paging = new PageVO(Integer.parseInt(page), totalCnt);
 		req.setAttribute("paging", paging);
+		//searchCondition, keyword 전달.
+		req.setAttribute("searchCondition", sc);
+		req.setAttribute("keyword", kw);
+
 		
 		
 		try {

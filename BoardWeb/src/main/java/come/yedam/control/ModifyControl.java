@@ -25,12 +25,13 @@ public class ModifyControl implements Control {
 		HttpSession session = req.getSession();
 		String sessionId = (String) session.getAttribute("loginId");
 		String writerId = board.getWriter();
-		if (sessionId.equals(writerId)) {
-			req.setAttribute("msg", "권한을 확인하세요.");
-			req.setAttribute("board", board);
-			req.getRequestDispatcher("/WEB-INF/views/board.jsp").forward(req, resp);
-			return;
+		if (sessionId != null && sessionId.equals(writerId)) {
+		    req.setAttribute("msg", "권한을 확인하세요.");
+		    req.setAttribute("board", board);
+		    req.getRequestDispatcher("/WEB-INF/views/board.jsp").forward(req, resp);
+		    return;
 		}
+
 		
 		// 요청정보의 attribute 활용.
 		req.setAttribute("board", board);
