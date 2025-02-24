@@ -12,21 +12,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import come.yedam.control.AddBoardControl;
+import come.yedam.control.AjaxControl;
 import come.yedam.control.BoardControl;
 import come.yedam.control.BoardListControl;
+import come.yedam.control.DataControl;
 import come.yedam.control.LoginControl;
 import come.yedam.control.LogoutControl;
 import come.yedam.control.MainControl;
+import come.yedam.control.MemberListControl;
 import come.yedam.control.ModifyBoardControl;
 import come.yedam.control.ModifyControl;
 import come.yedam.control.RemoveBoardControl;
+import come.yedam.control.RemoveMeberControl;
 
 
 /*
  * MVC에서 Control 역할.
  * url 요청 -> 서블릿.
  */
-@WebServlet("*.do")
+//@WebServlet("*.do")
 public class FronController extends HttpServlet {
     Map<String, Control> map;
 
@@ -51,6 +55,13 @@ public class FronController extends HttpServlet {
         map.put("/loginForm.do", new LoginControl()); //로그인화면.
         map.put("/login.do", new LoginControl());  // 로그인처리.
         map.put("/logout.do", new LogoutControl());  // 로그아웃.
+       
+        
+        map.put("/memberList.do", new MemberListControl());  //회원목록.
+        map.put("/testAjax.do", new AjaxControl());         
+        map.put("/testData.do", new DataControl()); 
+        // 회원삭제.
+        map.put("/removeMember.do", new RemoveMeberControl());
 
 
 

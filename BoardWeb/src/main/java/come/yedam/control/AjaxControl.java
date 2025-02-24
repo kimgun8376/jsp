@@ -8,11 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import come.yedam.Control;
 
-public class MainControl implements Control {
+public class AjaxControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            req.getRequestDispatcher("main/main.tiles").forward(req, resp);
+      req.getRequestDispatcher("admin/testAjax.tiles").forward(req, resp);
 	}
 
 }

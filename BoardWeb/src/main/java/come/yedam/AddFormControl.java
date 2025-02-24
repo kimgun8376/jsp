@@ -15,6 +15,6 @@ public class AddFormControl implements Control {
       
 		
 		//글동록화면 요청재지정.
-		req.getRequestDispatcher("/WEB-INF/views/addForm.jsp").forward(req, resp);
+		req.getRequestDispatcher("board/addForm.tiles").forward(req, resp);
 	}
 }

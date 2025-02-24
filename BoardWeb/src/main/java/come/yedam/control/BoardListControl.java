@@ -16,20 +16,18 @@ import come.yedam.vo.SearchVO;
 
 public class BoardListControl implements Control {
 	@Override
-	public void exec(HttpServletRequest req, HttpServletResponse resp)
-	throws SecurityException,IOException {
-		
+	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 		String page = req.getParameter("page");
-		page = page == null ? "1" : page; 
+		page = page == null ? "1" : page;
 		String sc = req.getParameter("searchCondition");
 		String kw = req.getParameter("keyword");
-		sc = sc == null ? "" : sc;  //null 값처리
-		kw = kw == null ? "" : kw; //null 값처리
-		
-		//SearchVO : 파라미터
+		sc = sc == null ? "" : sc; // null 값처리
+		kw = kw == null ? "" : kw; // null 값처리
+
+		// SearchVO : 파라미터
 		SearchVO search = new SearchVO(Integer.parseInt(page), sc, kw);
 
-		
 		String name = "홍길동";
 		// boardList.do -> BoardListControl
 		req.setAttribute("msg", name);
@@ -37,25 +35,18 @@ public class BoardListControl implements Control {
 		BoardDAO edao = new BoardDAO();
 		List<BoardVO> list = edao.selectBoard(search);
 		req.setAttribute("list", list);
-		
-		//페이징
+
+		// 페이징
 		int totalCnt = edao.getTotalCount(search); // 실제건수.
-		
+
 		PageVO paging = new PageVO(Integer.parseInt(page), totalCnt);
 		req.setAttribute("paging", paging);
-		//searchCondition, keyword 전달.
+		// searchCondition, keyword 전달.
 		req.setAttribute("searchCondition", sc);
 		req.setAttribute("keyword", kw);
 
-		
-		
-		try {
-			// 요청재지정 (url:boardList.do(boardList.jsp))
-			req.getRequestDispatcher("/WEB-INF/views/boardList.jsp").forward(req, resp); // 해당파일 열려면 폴더 - 파일이름 
-		} catch (ServletException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		// 요청재지정 (url:boardList.do(boardList.jsp))
+		req.getRequestDispatcher("board/boardList.tiles").forward(req, resp); // 해당파일 열려면 폴더 - 파일이름
+
 	}
 }
