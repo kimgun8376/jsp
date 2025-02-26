@@ -25,6 +25,16 @@
 <th>작성일시</th>
 <td><c:out value ="${board.writeDate }"></c:out></td>
 </tr>
+
+<tr>
+<th>이미지</th>
+<td colspan ="3">
+<c:if test="${board.img !=null }">
+<img src = "images/${board.img }" width="100px">
+</c:if>
+</td>
+</tr>
+
 <tr>
 <td colspan="3" align = "center">
 <button class ="btn btn-warning" type ="submit">수정</button>
@@ -37,6 +47,7 @@
 </c:if>
 </table>
 </form>
+
 <style>
 .reply .content ul {
  list-style-type:"none";
@@ -65,20 +76,17 @@ display: inline-block;
 </li>
 </ui>
 </div>
-</div>
 
 <!-- 댓글 페이징 -->
 <div class = "footer">
-<nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">  
-  </ul>
-</nav>
+
 </div>
 
 <script>
  //삭제버튼에 클릭이벤트 등록.
  let logid="${loginId}"; // 자바의 변수값을 script 사용.
- const bno = 
+ const bno = "${board.boardNo}";
+ console.log(bno);
  document.querySelector('button.btn-danger')
  .addEventListener('click',function(e) {
 	 let write = document.querySelector('table.table>tbody>tr:nth-of-type(4)>td').innerHTML;

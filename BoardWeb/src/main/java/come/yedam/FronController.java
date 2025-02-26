@@ -17,6 +17,8 @@ import come.yedam.control.AddMemberControl;
 import come.yedam.control.AjaxControl;
 import come.yedam.control.BoardControl;
 import come.yedam.control.BoardListControl;
+import come.yedam.control.ChartControl;
+import come.yedam.control.ChartData;
 import come.yedam.control.DataControl;
 import come.yedam.control.LoginControl;
 import come.yedam.control.LogoutControl;
@@ -76,7 +78,10 @@ public class FronController extends HttpServlet {
         map.put("/addReply.do", new addReplyControl()); // 등록.
         map.put("/removeReply.do", new RemoveReplyConttrol()); // 삭제.
         map.put("/getReplyCnt.do", new ReplyCount()); // 삭제.
-
+        
+        // 차트.
+        map.put("/chart.do", new ChartControl()); // 삭제.
+        map.put("/chartData.do", new ChartData()); // 삭제.
 
 
     }

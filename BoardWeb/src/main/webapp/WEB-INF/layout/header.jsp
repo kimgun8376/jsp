@@ -4,7 +4,6 @@
 
 
 <!-- Sidebar-->
-
             <div class="border-end bg-white" id="sidebar-wrapper">
                 <div class="sidebar-heading border-bottom bg-light">Start Bootstrap</div>
                 <div class="list-group list-group-flush">
@@ -19,7 +18,7 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="logout.do">로그아웃</a>
                     </c:otherwise>
                     </c:choose>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="chart.do">차트</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
                 </div>
             </div>
