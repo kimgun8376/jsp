@@ -29,7 +29,7 @@ public class BoardListControl implements Control {
 		SearchVO search = new SearchVO(Integer.parseInt(page), sc, kw);
 
 		String name = "홍길동";
-		// boardList.do -> BoardListControl
+		// boardList.do -> (BoardListControl) -> boardList.jsp
 		req.setAttribute("msg", name);
 
 		BoardDAO edao = new BoardDAO();

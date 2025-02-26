@@ -99,8 +99,11 @@ public class BoardDAO extends DAO {
 	// 조회 (select)
 	public List<BoardVO> selectBoard(SearchVO search) {
 		List<BoardVO> list = new ArrayList<>();
-		String qry = "select tbl_b.*" + "from(select rownum rn, tbl_a.*"
-				+ " from( select board_no, title, content, writer, write_date, view_cnt" + "  from tbl_board";
+		String qry = "select tbl_b.*" + ""
+				+ "from(select rownum rn, tbl_a.*"
+				+ " from( select board_no, title, "
+				+ "content, writer, write_date, view_cnt" 
+				+ "  from tbl_board";
 		if (search.getSearchCondition().equals("T")) {
 			qry += "          where title like '%'||?||'%' ";
 		} else if (search.getSearchCondition().equals("W")) {
@@ -168,7 +171,9 @@ public class BoardDAO extends DAO {
 
 	// 수정 (update)
 	public boolean updateBoard(BoardVO board) {
-		String sql = "update tbl_board set     title = ?" + "     ,content = ? " + "where board_no = ?";
+		String sql = "update tbl_board set     title = ?" 
+	                   + "     ,content = ? " 
+				       + "where board_no = ?";
 
 		try {
 			psmt = getConnect().prepareStatement(sql);

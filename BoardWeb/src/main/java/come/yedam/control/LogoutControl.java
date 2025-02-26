@@ -16,7 +16,7 @@ public class LogoutControl implements Control {
            HttpSession session = req.getSession(); //jsessionid쿠키.
            session.invalidate();
            
-           resp.sendRedirect("loginForm.do");
+           resp.sendRedirect("main.do");
 	}
 
 }

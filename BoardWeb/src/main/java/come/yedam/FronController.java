@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import come.yedam.control.AddBoardControl;
+import come.yedam.control.AddFormControl;
+import come.yedam.control.AddMemberControl;
 import come.yedam.control.AjaxControl;
 import come.yedam.control.BoardControl;
 import come.yedam.control.BoardListControl;
@@ -24,6 +26,10 @@ import come.yedam.control.ModifyBoardControl;
 import come.yedam.control.ModifyControl;
 import come.yedam.control.RemoveBoardControl;
 import come.yedam.control.RemoveMeberControl;
+import come.yedam.control.RemoveReplyConttrol;
+import come.yedam.control.ReplyCount;
+import come.yedam.control.ReplyListControl;
+import come.yedam.control.addReplyControl;
 
 
 /*
@@ -62,7 +68,14 @@ public class FronController extends HttpServlet {
         map.put("/testData.do", new DataControl()); 
         // 회원삭제.
         map.put("/removeMember.do", new RemoveMeberControl());
+        //회원등록.
+        map.put("/addMember.do", new AddMemberControl());
 
+        //댓글관련.
+        map.put("/replyList.do", new ReplyListControl()); // 목록.
+        map.put("/addReply.do", new addReplyControl()); // 등록.
+        map.put("/removeReply.do", new RemoveReplyConttrol()); // 삭제.
+        map.put("/getReplyCnt.do", new ReplyCount()); // 삭제.
 
 
 

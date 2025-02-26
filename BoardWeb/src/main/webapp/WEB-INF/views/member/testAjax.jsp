@@ -1,9 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <h3>Ajax연습페이지</h3>
-이름 :<input type ="text" name="name"><br>
-나이 :<input type ="number" name="age">
+<table class = "table">
+<tr>
+ <th>회원ID</th><td> :<input type ="text" name="mid"></td><br>
+ </tr>
 
+ <tr>
+ <th>비밀번호</th><td> :<input type ="text" name="mpw"></td><br>
+ </tr>
+ 
+ <tr>
+ <th>회원이름</th><td> :<input type ="text" name="mname"></td><br>
+ </tr>
+ 
+ <tr>
+<td colspan = "2" align = "center">
+<button id ="addMember">추가</button>
+</td> 
+</tr>
+</table>
 <h3>회원 목록</h3>
 <table class="table">
     <thead>

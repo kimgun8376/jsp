@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import come.yedam.Control;
+import come.yedam.dao.MemberDAO;
 
 public class RemoveMeberControl implements Control {
 
@@ -15,7 +16,9 @@ public class RemoveMeberControl implements Control {
       String id =req.getParameter("mid");
       
       //MemberDAO에 삭제. boolean
-      boolean isOK = true;
+      MemberDAO mdao = new MemberDAO();
+      // 정상삭제 : true, 처리예외:false;
+      boolean isOK = mdao.deleteMember(id);
       if(isOK) {
     	  // {"retCode":"ok"}
     	  resp.getWriter().print("{\"retCode\":\"OK\"}");
