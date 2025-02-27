@@ -5,7 +5,7 @@
   
 <mapper namespace="come.yedam.mapper.ReplyMapper">
   <insert id = "insertReply" parameterType = "reply">
-  <selectKey keyProperty = "replyNo" resultType ="int">
+  <selectKey keyProperty = "replyNo" resultType ="int" order = "BEFORE">
   select reply_seq.nextval from dual
   </selectKey>
   insert into tbl_reply (reply_no, reply, replyer, board_no) 

@@ -23,6 +23,9 @@ public class ReplyListControl implements Control {
 		String bno = req.getParameter("bno");
 		String page = req.getParameter("page");
 
+		 System.out.print(bno);
+		 System.out.print(page);
+
 
 		// DAO 활용.
 		ReplyDAO rdao = new ReplyDAO();

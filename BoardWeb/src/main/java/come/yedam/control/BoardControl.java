@@ -20,15 +20,13 @@ public class BoardControl implements Control {
 	public void exec(HttpServletRequest req, HttpServletResponse resp)
 	    throws ServletException, IOException{  
 		//글동록화면 요청재지정.
-		String page = req.getParameter("page");
 		String bno = req.getParameter("bno");
 	
 		SqlSession sqlSession = DataSource.getInstance().openSession();
 		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
 		
-		BoardDAO bdao = new BoardDAO();
-		BoardVO board = bdao.getBoard(Integer.parseInt(bno));
-		bdao.updateCount(Integer.parseInt(bno)); //조회수 증가.
+		BoardVO board = mapper.getBoard(Integer.parseInt(bno));
+		mapper.updateCount(Integer.parseInt(bno)); //조회수 증가.
 		
 		//요청정보의 attribute 활용.
 		req.setAttribute("board", board);

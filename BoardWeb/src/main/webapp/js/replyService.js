@@ -7,7 +7,7 @@ const svc = {
 		return this.name;
 	},
 	// 목록메소드
-	replyList: function(param = { bno: boardno, page: pagecno }, successCallback, errorCallback) {
+	replyList: function(param = { bno, page }, successCallback, errorCallback) {
 		fetch('replyList.do?bno=' + param.bno + '&page=' + param.page)
 			.then(result => result.json()) // 화살표 함수.
 			.then(successCallback) // 정상처리시 실행함수.

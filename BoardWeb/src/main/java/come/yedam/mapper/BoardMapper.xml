@@ -58,7 +58,7 @@
     ) tbl_b
     where tbl_b.rn >= (#{page} - 1) * 5 + 1
     <![CDATA[
-      and tbl_b.rn <= ? * 5
+      and tbl_b.rn <= #{page} * 5
     ]]>
   </select>
 
