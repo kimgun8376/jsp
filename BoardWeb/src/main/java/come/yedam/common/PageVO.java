@@ -1,4 +1,4 @@
-package come.yedam;
+package come.yedam.common;
 
 public class PageVO {
      // 67건. 1 ~ 14페이지.

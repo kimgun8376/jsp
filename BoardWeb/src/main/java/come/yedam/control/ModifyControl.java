@@ -7,9 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
+
 import come.yedam.Control;
+import come.yedam.common.DataSource;
 import come.yedam.dao.BoardDAO;
-import come.yedam.serv.BoardVO;
+import come.yedam.mapper.BoardMapper;
+import come.yedam.vo.BoardVO;
 
 public class ModifyControl implements Control {
 
@@ -18,6 +22,9 @@ public class ModifyControl implements Control {
 		// 수정화면 open.
 		String bno = req.getParameter("bno");
 
+		SqlSession sqlSession = DataSource.getInstance().openSession();
+		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
+		
 		BoardDAO bdao = new BoardDAO();
 		BoardVO board = bdao.getBoard(Integer.parseInt(bno));
 

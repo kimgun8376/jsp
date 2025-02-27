@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="come.yedam.mapper.BoardMapper">
+  <!-- 전체 게시물 수 가져오기 -->
+  <select id="getTotalCount" parameterType="come.yedam.common.SearchVO" resultType="int">
+    select count(1) from tbl_board
+    <choose>
+      <when test="searchCondition == 'T'.toString()">
+        where title like '%'||#{keyword}||'%'
+      </when>
+      <when test="searchCondition == 'W'.toString()">
+        where Writer like '%'||#{keyword}||'%'
+      </when>
+      <when test="searchCondition == 'TW'.toString()">
+        where Writer like '%'||#{keyword}||'%'or title like '%'||#{Keyword}||'%'
+      </when>
+    </choose>
+  </select>
+
+  <!-- 조회수 증가 -->
+  <update id="updateCount" parameterType="int">
+    update tbl_board
+    set view_cnt = view_cnt + 1
+    where board_no = #{boardNo}
+  </update>
+
+  <!-- 게시물 정보 가져오기 -->
+  <select id="getBoard" resultType="board" parameterType="int">
+    select *
+    from tbl_board
+    where board_no = #{boardNo}
+  </select>
+
+  <!-- 조건에 맞는 게시물 목록 가져오기 -->
+  <select id="selectBoard" parameterType="come.yedam.common.SearchVO" resultType="board">
+    select tbl_b.*
+    from (
+      select rownum rn, tbl_a.*
+      from (
+        select board_no, title, content, writer, write_date, view_cnt
+        from tbl_board
+        <choose>
+          <when test="searchCondition == 'T'.toString()">
+            where title like '%'||#{keyword}||'%'
+          </when>
+          <when test="searchCondition == 'W'.toString()">
+            where Writer like '%'||#{keyword}||'%'
+          </when>
+          <when test="searchCondition == 'TW'.toString()">
+            where Writer like '%'||#{keyword}||'%' or title like '%'||#{keyword}||'%'
+          </when>
+        </choose>
+        order by board_no desc
+      ) tbl_a
+    ) tbl_b
+    where tbl_b.rn >= (#{page} - 1) * 5 + 1
+    <![CDATA[
+      and tbl_b.rn <= ? * 5
+    ]]>
+  </select>
+
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="come.yedam.mapper.ReplyMapper">
+  <insert id = "insertReply" parameterType = "reply">
+  <selectKey keyProperty = "replyNo" resultType ="int">
+  select reply_seq.nextval from dual
+  </selectKey>
+  insert into tbl_reply (reply_no, reply, replyer, board_no) 
+ values(#{replyNo}, #{reply}, #{replyer}, #{boardNo})
+  
+  </insert>
+</mapper>

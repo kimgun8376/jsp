@@ -5,12 +5,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.session.SqlSession;
+
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import come.yedam.Control;
+import come.yedam.common.DataSource;
 import come.yedam.dao.BoardDAO;
-import come.yedam.serv.BoardVO;
+import come.yedam.mapper.BoardMapper;
+import come.yedam.vo.BoardVO;
 
 public class AddBoardControl implements Control {
 
@@ -41,14 +45,17 @@ public class AddBoardControl implements Control {
 		bvo.setContent(title);
 		bvo.setWriter(writer);
 		bvo.setImg(img);
+		
 
 		// BoardVO에 파라미터 값 세팅
 
 		// BoardDAO 객체 생성 후 데이터베이스에 저장
-		BoardDAO bdao = new BoardDAO();
-
+		SqlSession sqlSession = DataSource.getInstance().openSession();
+		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
+		
 		// 데이터베이스에 삽입이 성공하면 목록 페이지로 리다이렉트
-		if (bdao.insertBoard(bvo)) {
+		if (mapper.insertBoard(bvo) == 1) {
+			sqlSession.commit(true);
 			resp.sendRedirect("boardList.do"); // sendRedirect로 수정
 		} else {
 			System.out.println("실패");

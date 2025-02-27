@@ -8,7 +8,7 @@ import com.google.gson.GsonBuilder;
 
 import come.yedam.dao.ReplyDAO;
 
-public class Test {
+public class TTest {
 	public static void main(String[] args) {
 		System.out.println("srar");
 		ReplyDAO rdao = new ReplyDAO();

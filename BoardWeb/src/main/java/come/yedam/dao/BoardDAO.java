@@ -1,11 +1,13 @@
 package come.yedam.dao;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import come.yedam.serv.BoardVO;
-import come.yedam.vo.SearchVO;
+import come.yedam.common.SearchVO;
+import come.yedam.vo.BoardVO;
 
 /*
  * CRUD: Create, Read, Update, Delete
@@ -111,7 +113,8 @@ public class BoardDAO extends DAO {
 		} else if (search.getSearchCondition().equals("TW")) {
 			qry += "          where title like '%'||?||'%' or writer like '%'||?||'%' ";
 		}
-		qry += "  order by board_no desc) tbl_a) tbl_b" + " where tbl_b.rn >= (? - 1 ) * 5 + 1"
+		qry += "  order by board_no desc) tbl_a) tbl_b" 
+		    + " where tbl_b.rn >= (? - 1 ) * 5 + 1"
 				+ " and   tbl_b.rn <= ? * 5";
 		// 데이터베이스 연결을 위한 변수 선언
 		try {
