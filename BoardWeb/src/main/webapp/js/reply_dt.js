@@ -10,31 +10,40 @@ let table = new DataTable('#example', {
 });
 
 //화면에서 row 추가.
+let counter = 'hello'
 function addNewRow() {
-    table.row
-        .add([
-            counter + '.1',
-            counter + '.2',
-            counter + '.3',
-            counter + '.4',
-            counter + '.5'
-        ])
-        .draw(false);
- 
-    counter++;
+	//원본글(bno), replyer(logid), reply(#reply)
+	let reply = document.querySelector('#reply').value;
+	let param = { bno, reply, replyer: logid }
+	// ajax호출.
+	svc.addReply(param,
+		function(result) {
+			let rvo = result.retVal;
+			table.row
+				.add([
+					rvo.replyNo,
+					rvo.reply,
+					rvo.replyer,
+					rvo.replyDate,
+				])
+				.draw(false);
+		},
+		function(err) {
+               console.log(err);
+		}
+	)
+
 }
 
-document.querySelector('#addRow').addEventListener('click', addNewRow);
-
-
+document.querySelector('#addReply').addEventListener('click', addNewRow);
 
 // tr선택 / 선택해제 	
 
-let delNo = 0; 
+let delNo = 0;
 table.on('click', 'tbody tr', (e) => {
 	let classList = e.currentTarget.classList //['selecte']
 	console.log(e.currentTarget.children[0].innerText);
-	
+
 	if (classList.contains('selected')) {
 		classList.remove('selected');
 	}

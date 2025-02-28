@@ -23,11 +23,11 @@
 
   <!-- insertReply 쿼리 (댓글을 추가하는 쿼리) -->
   <insert id="insertReply" parameterType="reply">
-    <selectKey keyProperty="replyNo" resultType="int" order="BEFORE">
-      select reply_seq.nextval from dual
-    </selectKey>
-    insert into tbl_reply (reply_no, reply, replyer, board_no)
-    values (#{replyNo}, #{reply}, #{replyer}, #{boardNo})
+  <selectKey keyProperty = "replyNo" resultType ="int" order = "BEFORE">
+  select reply_seq.nextval from dual
+  </selectKey>
+  insert into tbl_reply(reply_no, reply, replyer, board_no)
+  values(#{replyNo}, #{reply}, #{replyer}, #{boardNo})
   </insert>
 
 </mapper>
