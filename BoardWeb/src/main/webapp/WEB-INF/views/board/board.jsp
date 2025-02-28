@@ -63,9 +63,12 @@ display: inline-block;
 <div class="header">
 <input type ="text" id ="reply" class="col-sm-9">
 <button id="addReply">댓글등록</button>
+<button id="button">댓글삭제</button>
+
 </div>
 
 <!-- 댓글목록. -->
+<!--  
 <div class="content">
 <ui>
 <li>
@@ -76,12 +79,35 @@ display: inline-block;
 </li>
 </ui>
 </div>
+-->
 
 <!-- 댓글 페이징 -->
+<!--
 <div class = "footer">
-
 </div>
+-->
 
+<!-- 데이터테이블 활용. -->
+
+<table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>댓글번호</th>
+                <th>내용</th>
+                <th>작성자</th>
+                <th>작성일시</th>              
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+               <th>댓글번호</th>
+                <th>내용</th>
+                <th>작성자</th>
+                <th>작성일시</th> 
+            </tr>
+        </tfoot>
+    </table>
+    
 <script>
  //삭제버튼에 클릭이벤트 등록.
  let logid="${loginId}"; // 자바의 변수값을 script 사용.
@@ -99,4 +125,11 @@ display: inline-block;
  });
 </script>
 <script src = "js/replyService.js"></script>
-<script src = "js/reply.js"></script>
+<!-- <script src = "js/reply.js"></script>-->
+<link rel="stylesheet" href = "https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css">
+<script src ="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src = "https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+<script src = "js/reply_dt.js"></script>
+
+
+

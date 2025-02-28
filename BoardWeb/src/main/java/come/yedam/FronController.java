@@ -20,6 +20,7 @@ import come.yedam.control.BoardListControl;
 import come.yedam.control.ChartControl;
 import come.yedam.control.ChartData;
 import come.yedam.control.DataControl;
+import come.yedam.control.DataTableControl;
 import come.yedam.control.LoginControl;
 import come.yedam.control.LogoutControl;
 import come.yedam.control.MainControl;
@@ -82,6 +83,9 @@ public class FronController extends HttpServlet {
         // 차트.
         map.put("/chart.do", new ChartControl()); // 삭제.
         map.put("/chartData.do", new ChartData()); // 삭제.
+       
+        //datatable
+        map.put("/datatable.do", new DataTableControl()); // 삭제.
 
 
     }
