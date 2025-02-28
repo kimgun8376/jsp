@@ -84,15 +84,16 @@ public class FronController extends HttpServlet {
         map.put("/getReplyCnt.do", new ReplyCount()); // 삭제.
         
         // 차트.
-        map.put("/chart.do", new ChartControl()); // 삭제.
+        map.put("/chart.do", new ChartControl()); // .
         map.put("/chartData.do", new ChartData()); // 삭제.
        
         //datatable
         map.put("/datatable.do", new DataTableControl()); // 삭제.
 
         map.put("/full.do", new FullCalendarControl()); // 캘린더.
-        map.put("/fullData.do", new FullDataControl()); // 캘린더.
-
+        map.put("/fullData.do", new FullDataControl()); // 조회.
+        map.put("/fullData.do", new FullDataControl());  //등록.
+                                     
     }
 
     @Override

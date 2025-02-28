@@ -15,5 +15,8 @@ public interface ReplyMapper {
     public List<ReplyVO> replyListAll(int boardNo);
     
     public List<Map<String,Object>> fullData();
+    public int insertEvent(@Param("title")String title//
+    		, @Param("start") String start//
+    		, @Param("end") String end );
  
 }
