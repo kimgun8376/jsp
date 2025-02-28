@@ -5,6 +5,13 @@
 
 <mapper namespace="come.yedam.mapper.ReplyMapper">
 
+<select id = "fullData" resultType="map">
+ select title as "title"
+         ,start_date as "start"
+         ,end_date as "end"
+ from tbl_calendar
+</select>
+
  <!-- replyListAll 쿼리 (모든 댓글을 가져오는 쿼리 추가) -->
   <select id="replyListAll" resultType="reply" parameterType="int">
     select *

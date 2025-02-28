@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import come.yedam.control.FullCalendarControl;
+import come.yedam.common.FullDataControl;
 import come.yedam.control.AddBoardControl;
 import come.yedam.control.AddFormControl;
 import come.yedam.control.AddMemberControl;
@@ -21,6 +23,7 @@ import come.yedam.control.ChartControl;
 import come.yedam.control.ChartData;
 import come.yedam.control.DataControl;
 import come.yedam.control.DataTableControl;
+import come.yedam.control.FullCalendarControl;
 import come.yedam.control.LoginControl;
 import come.yedam.control.LogoutControl;
 import come.yedam.control.MainControl;
@@ -87,6 +90,8 @@ public class FronController extends HttpServlet {
         //datatable
         map.put("/datatable.do", new DataTableControl()); // 삭제.
 
+        map.put("/full.do", new FullCalendarControl()); // 캘린더.
+        map.put("/fullData.do", new FullDataControl()); // 캘린더.
 
     }
 
