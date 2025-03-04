@@ -18,7 +18,7 @@ and start_date = #{end}
     title as title, 
     start_date as start, 
     end_date as end
-from your_tabl
+from tbl_calendal
     </select>
 
     <!-- replyListAll 쿼리 (모든 댓글을 가져오는 쿼리) -->
@@ -29,7 +29,7 @@ from your_tabl
     </select>
   
     <!-- replyList 쿼리 (특정 board_no에 대한 댓글 목록을 가져오는 쿼리) -->
-    <select id="replyList" resultType="reply">
+    <select id="replyList" resultType="reply" >
         select *
         from tbl_reply
         where board_no = #{boardNo}
