@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			select: function(arg) {
 				var title = prompt('Event Title:');
 				console.log(title, arg.startStr, arg.endStr);
+				// Ajax 출력.
 				fetch('addData.do?title=' + title + '&start=' + arg.startStr + '&end=' + arg.endStr)
 					.then(result => result.json())
 					.then(result => {
@@ -53,10 +54,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			},
 			eventClick: function(arg) {
-				consol.log(arg);
+				console.log(arg);
 				// Ajax 호출 -> 컨트롤 -> 삭제 -> 화면삭제.
 				if (confirm('이벤트를 삭제하겠습니까?')) {
-					arg.event.remove() // 화면 event 삭제
+					fetch('removeData.do?title='+arg.event.title+'&start='+arg.event.start+'&end='+arg.event.end)
+					.then(result => result.json())
+					.then(result => {
+						if(result.retCode == 'OK') {
+							arg.event.remove() // 화면 event 삭제
+						} else {
+							alert('삭제중 예외.');
+						}
+						
+					})
+                       .catch(err=> console.log(err));
 				}
 			},
 			editable: true,

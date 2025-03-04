@@ -22,11 +22,7 @@ public class ReplyListControl implements Control {
 		// 원본글 번호.
 		String bno = req.getParameter("bno");
 		String page = req.getParameter("page");
-
-		 System.out.print(bno);
-		 System.out.print(page);
-
-
+		
 		// DAO 활용.
 		ReplyDAO rdao = new ReplyDAO();
 		List<ReplyVO> list = rdao.replyList(Integer.parseInt(bno),Integer.parseInt(page));

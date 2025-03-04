@@ -18,5 +18,10 @@ public interface ReplyMapper {
     public int insertEvent(@Param("title")String title//
     		, @Param("start") String start//
     		, @Param("end") String end );
+    
+    //삭제.
+    public int deleteEvent(@Param("title")String title//
+    		, @Param("start") String start//
+    		, @Param("end") String end );
  
 }

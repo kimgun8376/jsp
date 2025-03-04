@@ -13,7 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import come.yedam.control.FullCalendarControl;
 import come.yedam.common.AddData;
+import come.yedam.common.ApiControl;
 import come.yedam.common.FullData;
+import come.yedam.common.MapControl;
+import come.yedam.common.RemoveData;
 import come.yedam.common.FullData;
 import come.yedam.control.AddBoardControl;
 import come.yedam.control.AddFormControl;
@@ -90,35 +93,30 @@ public class FronController extends HttpServlet {
         map.put("/chartData.do", new ChartData()); // 삭제.
        
         //datatable
-        map.put("/datatable.do", new DataTableControl()); // 삭제.
-
+        map.put("/datatable.do", new DataTableControl()); //
         map.put("/full.do", new FullCalendarControl());
 		map.put("/fullData.do", new FullData()); // 조회.
 		map.put("/addData.do", new AddData()); // 등록.
-		
+		map.put("/removeData.do", new RemoveData()); //삭제.
+
+		map.put("/api.do", new ApiControl()); //삭제.
+		map.put("/map.do", new MapControl()); //삭제.
+
                                      
     }
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        System.out.println("FrontController: service()");
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		System.out.println("front control");
+		// http://localhost:8080/BoardWeb/addStudent.do => url
+		// /BoardWeb/addStudent.do => uri
+		String uri = req.getRequestURI(); // "/BoardWeb/addStudent.do"
+		String context = req.getContextPath(); // "/BoardWeb"
+		String page = uri.substring(context.length());
 
-        // URI를 통해 요청된 URL을 가져옵니다.
-        String uri = req.getRequestURI(); // 예: "/BoardWeb/addStudent.do"
-        String context = req.getContextPath(); // 예: "/BoardWeb"
-        String page = uri.substring(context.length()); // 예: "/addStudent.do"
-
-        System.out.println("Request URI: " + page);
-
-        // map 컬렉션에서 해당 URL에 맞는 Control 객체를 가져옵니다.
-        Control control = map.get(page);
-        
-        // Control 객체가 null이 아니면 exec() 메서드를 실행
-        if (control != null) {
-            control.exec(req, resp);
-        } else {
-            // 존재하지 않는 URL에 대한 처리를 추가할 수 있습니다...........................................
-            resp.getWriter().print("잘못된 요청입니다.");
-        }
-    }
+		System.out.println(page);
+		// map컬렉션에서 key를 입력하면 val반환.
+		Control control = map.get(page);
+		control.exec(req, resp);
+	}
 }

@@ -27,7 +27,7 @@ public class MemberDAO extends DAO {
 
     // 로그인 처리
     public MemberVO login(String id, String pw) {
-        String query = "SELECT * FROM tbl_member WHERE member_id = ? AND passwd = ?";
+        String query = "SELECT * FROM tbl_member WHERE member_id = ? AND passd = ?";
         try (PreparedStatement psmt = getConnect().prepareStatement(query)) {
             psmt.setString(1, id);
             psmt.setString(2, pw);
@@ -35,7 +35,7 @@ public class MemberDAO extends DAO {
                 if (rs.next()) {
                     MemberVO mvo = new MemberVO();
                     mvo.setMemberId(rs.getString("member_id"));
-                    mvo.setPasswd(rs.getString("passwd"));
+                    mvo.setPasswd(rs.getString("passd"));
                     mvo.setMemberName(rs.getString("member_name"));
                     mvo.setResponsibility(rs.getString("responsibility"));
                     return mvo;
