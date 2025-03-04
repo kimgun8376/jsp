@@ -1,58 +1,71 @@
 /**
- * full.js 
+ * full.js
  */
-document.addEventListener('DOMContentLoaded', function() {
 
+document.addEventListener('DOMContentLoaded', function() {
+	// event에 사용할 데이터.
 	let eventAll = [];
+
+	// Ajax 호출.
 	fetch('fullData.do')
 		.then(result => result.json())
 		.then(result => {
 			console.log(result);
-			eventAll = result;  // Store the fetched events in the eventAll array
-			fullCalendarFunc();  // Initialize the FullCalendar after data is fetched
+			eventAll = result; // 결과를 eventAll에 저장.
+			fullCalendarFunc();
 		})
-		.catch(err => console.log(err));  // Handle any errors
+		.catch(err => console.log(err));
 
-	// Initialize FullCalendar
+	// fullCalendar 호출.
 	function fullCalendarFunc() {
 		var calendarEl = document.getElementById('calendar');
-
 		var calendar = new FullCalendar.Calendar(calendarEl, {
 			headerToolbar: {
 				left: 'prev,next today',
 				center: 'title',
 				right: 'dayGridMonth,timeGridWeek,timeGridDay'
 			},
-			initialDate: '2023-01-12',
-			navLinks: true, // Can click day/week names to navigate views
+			initialDate: new Date(),
+			navLinks: true, // can click day/week names to navigate views
 			selectable: true,
 			selectMirror: true,
 			select: function(arg) {
 				var title = prompt('Event Title:');
 				console.log(title, arg.startStr, arg.endStr);
+				fetch('addData.do?title=' + title + '&start=' + arg.startStr + '&end=' + arg.endStr)
+					.then(result => result.json())
+					.then(result => {
+						if (result.retCode == "OK") {
+							// 화면출력.
+							if (title) {
+								calendar.addEvent({
+									title: title,
+									start: arg.start,
+									end: arg.end,
+									allDay: arg.allDay
+								})
+							}
+							calendar.unselect(); // 화면출력.
+						} else {
+							alert('처리오류!');
+						}
+					})
 
-				// Add event to the calendar
-				if (title) {
-					calendar.addEvent({
-						title: title,
-						start: arg.start,
-						end: arg.end,
-						allDay: arg.allDay
-					});
-				}
-				calendar.unselect(); // Unselect the date
 			},
 			eventClick: function(arg) {
-				if (confirm('Are you sure you want to delete this event?')) {
-					arg.event.remove(); // Remove event on click
+				consol.log(arg);
+				// Ajax 호출 -> 컨트롤 -> 삭제 -> 화면삭제.
+				if (confirm('이벤트를 삭제하겠습니까?')) {
+					arg.event.remove() // 화면 event 삭제
 				}
 			},
 			editable: true,
-			dayMaxEvents: true, // Allow "more" link when too many events
-			events: eventAll // Pass the fetched events here
+			dayMaxEvents: true, // allow "more" link when too many events
+			events: eventAll
 		});
-
-		calendar.render();  // Render the calendar
+		calendar.render();
 	}
 
+
 });
+

@@ -16,7 +16,7 @@ import com.google.gson.GsonBuilder;
 import come.yedam.Control;
 import come.yedam.mapper.ReplyMapper;
 
-public class FullDataControl implements Control {
+public class FullData implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
